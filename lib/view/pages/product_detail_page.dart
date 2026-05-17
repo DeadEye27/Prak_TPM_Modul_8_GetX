@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../model/product.dart';
+import '../../controller/cart_controller.dart';
 
 class ProductDetailPage extends StatelessWidget {
   ProductDetailPage({super.key});
@@ -100,6 +101,23 @@ class ProductDetailPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          final cartController = Get.find<CartController>();
+          cartController.addToCart(product);
+        },
+        label: const Text(
+          'Tambahkan ke Keranjang', 
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        icon: const Icon(
+          Icons.add_shopping_cart,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.blueGrey,
       ),
     );
   }

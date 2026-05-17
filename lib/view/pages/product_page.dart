@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/product_controller.dart';
+import '../../controller/cart_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../view/widgets/product_card.dart';
 import 'product_detail_page.dart';
@@ -15,7 +16,22 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Product Home Page')),
+      appBar: AppBar(
+        title: const Text('Product Home Page'),
+        actions: [
+          Obx(() {
+            final cartController = Get.find<CartController>();
+            return IconButton(
+              icon: Badge(
+                label: Text('${cartController.cartItems.length}'),
+                isLabelVisible: cartController.cartItems.isNotEmpty,
+                child: const Icon(Icons.shopping_cart),
+              ),
+              onPressed: () => Get.toNamed(AppRoutes.cart), // Pindah ke halaman Cart
+            );
+          })
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12),
         // Obx() mendengarkan semua variabel reaktif di dalamnya.
